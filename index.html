@@ -6,20 +6,22 @@
         <title>목소리 변형기</title>
     </head>
     <body>
-        <h1>목소리 변형기</h1>
-        <button id="startRecord">녹음 시작</button>
-        <button id="stopRecord" disabled>녹음 중지</button>
+        <div class="container">
+            <h1>목소리 변형기</h1>
+            <button id="startRecord">녹음 시작</button>
+            <button id="stopRecord" disabled>녹음 중지</button>
 
-        <label for="characterSelect">캐릭터 선택:</label>
-        <select id="characterSelect">
-            <option value="robot">로봇</option>
-            <option value="highPitch">고음</option>
-            <option value="lowPitch">저음</option>
-        </select>
+            <label for="characterSelect">캐릭터 선택:</label>
+            <select id="characterSelect">
+                <option value="robot">로봇</option>
+                <option value="highPitch">고음</option>
+                <option value="lowPitch">저음</option>
+            </select>
 
-        <button id="playOriginal" disabled>원본 재생</button>
-        <button id="playTransformed" disabled>변형된 목소리 재생</button>
-        <audio id="audioPlayback" controls></audio>
+            <button id="playOriginal" disabled>원본 재생</button>
+            <button id="playTransformed" disabled>변형된 목소리 재생</button>
+            <audio id="audioPlayback" controls></audio>
+        </div>
 
         <script src="script.js"></script>
     </body>
