@@ -4,24 +4,170 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>목소리 변형기</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                    Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            }
+
+            body {
+                min-height: 100vh;
+                background: linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%);
+                color: #1d1d1f;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 48px;
+                font-weight: 700;
+                margin-bottom: 40px;
+                background: linear-gradient(90deg, #1d1d1f 0%, #434344 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-align: center;
+            }
+
+            button {
+                background: #0071e3;
+                border: none;
+                border-radius: 20px;
+                color: white;
+                padding: 12px 24px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 8px rgba(0, 113, 227, 0.2);
+            }
+
+            button:hover {
+                background: #0077ed;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+            }
+
+            button:disabled {
+                background: #999999;
+                cursor: not-allowed;
+                transform: none;
+                box-shadow: none;
+            }
+
+            .character-selector {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                margin: 40px 0;
+                padding: 20px;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 30px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                width: 90%;
+                max-width: 600px;
+                backdrop-filter: blur(10px);
+            }
+
+            .character-display {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-width: 150px;
+            }
+
+            .character-image {
+                width: 120px;
+                height: 120px;
+                border-radius: 60px;
+                border: 3px solid #ffffff;
+                margin-bottom: 15px;
+                background-size: cover;
+                background-position: center;
+                transition: all 0.3s ease;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            }
+
+            .character-name {
+                font-size: 1.2em;
+                font-weight: 500;
+                color: #1d1d1f;
+            }
+
+            .arrow-button {
+                font-size: 28px;
+                padding: 15px;
+                background: none;
+                border: none;
+                color: #1d1d1f;
+                transition: transform 0.3s ease;
+                box-shadow: none;
+            }
+
+            .arrow-button:hover {
+                transform: scale(1.2);
+                background: none;
+                box-shadow: none;
+            }
+
+            .selected .character-image {
+                border-color: #0071e3;
+                box-shadow: 0 0 20px rgba(0, 113, 227, 0.3);
+            }
+
+            #audioPlayback {
+                width: 90%;
+                max-width: 600px;
+                margin-top: 30px;
+                border-radius: 15px;
+                background: white;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .control-buttons {
+                display: flex;
+                gap: 15px;
+                margin: 20px 0;
+            }
+
+            @media (max-width: 768px) {
+                h1 {
+                    font-size: 36px;
+                }
+
+                .character-image {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+        </style>
     </head>
     <body>
-        <div class="container">
-            <h1>목소리 변형기</h1>
+        <h1>목소리 변형기</h1>
+        <div class="control-buttons">
             <button id="startRecord">녹음 시작</button>
             <button id="stopRecord" disabled>녹음 중지</button>
+        </div>
 
-            <label for="characterSelect">캐릭터 선택:</label>
-            <select id="characterSelect">
-                <option value="robot">로봇</option>
-                <option value="highPitch">고음</option>
-                <option value="lowPitch">저음</option>
-            </select>
+        <div class="character-selector">
+            <button class="arrow-button" id="prevCharacter">←</button>
+            <div class="character-display">
+                <div class="character-image"></div>
+                <div class="character-name"></div>
+            </div>
+            <button class="arrow-button" id="nextCharacter">→</button>
+        </div>
 
+        <div class="control-buttons">
             <button id="playOriginal" disabled>원본 재생</button>
             <button id="playTransformed" disabled>변형된 목소리 재생</button>
-            <audio id="audioPlayback" controls></audio>
         </div>
+        <audio id="audioPlayback" controls></audio>
 
         <script src="script.js"></script>
     </body>
